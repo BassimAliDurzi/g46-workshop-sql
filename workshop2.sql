@@ -98,13 +98,25 @@ where country.Code = (select CountryCode from city where city.Name = 'Luanda' an
 
 #
 # 18: What are the names of the capital cities in countries in the same region as the city named Yaren
-select city.name as "City name", country.Name as 'Country name', country.Region, city.id, country.Capital
-from city
-join country on country.Code = city.CountryCode
-where country.Code = (select CountryCode from city where city.Name = 'Yaren');
-#
+select country.name as 'Country', city.name as 'City', city.id, country.region, country.Capital
+from city 
+join country on city.CountryCode = country.Code
+where Country.Region = (select Region from country 
+						join city on city.CountryCode = country.Code 
+                        where city.name = "Yaren")
+                        and city.id = country.Capital;
+
 # 19: What unique languages are spoken in the countries in the same region as the city named Riga
-#
-#
+select countrylanguage.Language, countrylanguage.IsOfficial, country.Name as Country, countrylanguage.Percentage
+from country 
+join countrylanguage on countrylanguage.CountryCode = country.Code
+where Country.Region = (select Region from country 
+						join city on city.CountryCode = country.Code 
+                        where city.name = "Riga")
+                        and countrylanguage.IsOfficial = 'F';
+
 # 20: Get the name of the most populous city
-#
+select * 
+from city
+order by Population desc
+limit 1;
