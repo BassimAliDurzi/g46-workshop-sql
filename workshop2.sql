@@ -102,7 +102,7 @@ select country.name as 'Country', city.name as 'City', city.id, country.region, 
 from city 
 join country on city.CountryCode = country.Code
 where Country.Region = (select Region from country 
-						join city on city.CountryCode = country.Code 
+			join city on city.CountryCode = country.Code 
                         where city.name = "Yaren")
                         and city.id = country.Capital;
 
@@ -111,7 +111,7 @@ select distinct countrylanguage.Language
 from country 
 join countrylanguage on countrylanguage.CountryCode = country.Code
 where Country.Region = (select Region from country 
-						join city on city.CountryCode = country.Code 
+			join city on city.CountryCode = country.Code 
                         where city.name = "Riga")
                         and countrylanguage.IsOfficial = 'F';
 
