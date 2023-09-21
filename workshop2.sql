@@ -1,6 +1,5 @@
 # SQL Join exercise
 #
-
 #
 # 1: Get the cities with a name starting with ping sorted by their population with the least populated cities first
 select * from city 
@@ -98,6 +97,7 @@ where country.Code = (select CountryCode from city where city.Name = 'Luanda' an
 
 #
 # 18: What are the names of the capital cities in countries in the same region as the city named Yaren
+
 select country.name as 'Country', city.name as 'City', city.id, country.region, country.Capital
 from city 
 join country on city.CountryCode = country.Code
@@ -107,7 +107,7 @@ where Country.Region = (select Region from country
                         and city.id = country.Capital;
 
 # 19: What unique languages are spoken in the countries in the same region as the city named Riga
-select countrylanguage.Language, countrylanguage.IsOfficial, country.Name as Country, countrylanguage.Percentage
+select distinct countrylanguage.Language
 from country 
 join countrylanguage on countrylanguage.CountryCode = country.Code
 where Country.Region = (select Region from country 
@@ -120,3 +120,7 @@ select *
 from city
 order by Population desc
 limit 1;
+
+select name 
+from city 
+where population = (select max(population) from city);
